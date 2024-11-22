@@ -97,7 +97,7 @@ src/
 
 1. Get the code:
 ```bash
-[git clone https://github.com/yourusername/rbac-dashboard.git](https://github.com/Rohit-Nandagawali/rbac-ui)
+git clone https://github.com/Rohit-Nandagawali/rbac-ui.git
 cd rbac-ui
 ```
 

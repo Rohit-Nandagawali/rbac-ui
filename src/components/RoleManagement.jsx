@@ -3,9 +3,10 @@
 import React, { useState, useMemo } from 'react'
 import {
     Table, TableHeader, TableColumn, TableBody, TableRow, TableCell,
-    Button, Input, Modal, ModalContent, useDisclosure
+    Button, Input, Modal, ModalContent, useDisclosure,
+    Dropdown, DropdownTrigger, DropdownMenu, DropdownItem
 } from "@nextui-org/react"
-import { Search, PlusCircle, Pencil, Trash2 } from 'lucide-react'
+import { Search, PlusCircle, MoreVertical } from 'lucide-react'
 import RoleForm from './RoleForm'
 
 export default function RoleManagement({ roles, permissions, onAddRole, onEditRole, onDeleteRole }) {
@@ -41,6 +42,7 @@ export default function RoleManagement({ roles, permissions, onAddRole, onEditRo
             </div>
             <div className="mb-4">
                 <Input
+                    radius='full'
                     placeholder="Filter roles..."
                     value={filterValue}
                     onChange={(e) => setFilterValue(e.target.value)}
@@ -49,6 +51,7 @@ export default function RoleManagement({ roles, permissions, onAddRole, onEditRo
             </div>
             <Table
                 aria-label="Role management table"
+                shadow='none'
                 sortDescriptor={sortDescriptor}
                 onSortChange={setSortDescriptor}
             >
@@ -65,18 +68,23 @@ export default function RoleManagement({ roles, permissions, onAddRole, onEditRo
                             <TableCell>{item.description}</TableCell>
                             <TableCell>{item.permissions.join(', ')}</TableCell>
                             <TableCell>
-                                <Button isIconOnly color="primary" aria-label="Edit" onPress={() => { setSelectedRole(item); onOpen(); }}>
-                                    <Pencil size={18} />
-                                </Button>
-                                <Button isIconOnly color="danger" aria-label="Delete" onPress={() => onDeleteRole(item.id)}>
-                                    <Trash2 size={18} />
-                                </Button>
+                                <Dropdown className='dark text-foreground bg-background'>
+                                    <DropdownTrigger>
+                                        <Button isIconOnly size="sm" variant="light">
+                                            <MoreVertical className="text-default-300" />
+                                        </Button>
+                                    </DropdownTrigger>
+                                    <DropdownMenu>
+                                        <DropdownItem onPress={() => { setSelectedRole(item); onOpen(); }}>Edit</DropdownItem>
+                                        <DropdownItem color="danger" onPress={() => onDeleteRole(item.id)}>Delete</DropdownItem>
+                                    </DropdownMenu>
+                                </Dropdown>
                             </TableCell>
                         </TableRow>
                     )}
                 </TableBody>
             </Table>
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+            <Modal className='dark text-foreground bg-background' isOpen={isOpen} onOpenChange={onOpenChange}>
                 <ModalContent>
                     {(onClose) => (
                         <RoleForm

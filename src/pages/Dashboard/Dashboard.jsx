@@ -52,7 +52,8 @@ export default function RBACDashboard() {
     }
 
     return (
-        <div className="container mx-auto p-4 font-Montserrat">
+        <div className="container h-screen mx-auto p-4 font-Montserrat">
+
             <h1 className="text-3xl font-bold mb-6">RBAC Dashboard</h1>
             <Tabs aria-label="RBAC Dashboard Tabs">
                 <Tab key="users" title={<div className="flex items-center gap-2"><UserIcon size={18} />Users</div>}>

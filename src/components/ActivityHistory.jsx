@@ -6,7 +6,7 @@ export default function ActivityHistory({ logs }) {
     return (
         <div className="w-full">
             <h2 className="text-2xl font-semibold mb-6">Activity History</h2>
-            <ScrollShadow className="h-[600px] pr-4">
+            <ScrollShadow className=" pr-4">
                 <div className="space-y-6">
                     {logs.map((log, index) => (
                         <div key={log.id} className="relative">

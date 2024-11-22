@@ -3,7 +3,7 @@
 A user-friendly Role-Based Access Control (RBAC) dashboard built with React and Vite. This app helps you manage users, roles, and permissions, and keeps track of activities in real-time.
 
 ![RBAC Dashboard Preview](./public/rbac.PNG)
-[Try it - https://www.dummy.com ](https://www.dummy.com)
+[Try it - https://rbac-ui-six.vercel.app/ ](https://rbac-ui-six.vercel.app/)
 
 
 ## What's Inside
@@ -126,4 +126,4 @@ yarn dev
 
 ## Need Help?
 
-For help, email [support@example.com](mailto:support@example.com) or open an issue in this project
+For help, email [nandagawalirohit143@gmail.com](mailto:nandagawalirohit143@gmail.com) or open an issue in this project

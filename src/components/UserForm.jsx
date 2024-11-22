@@ -38,8 +38,8 @@ export default function UserForm({ user, roles, onSubmit, onClose }) {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <Dropdown>
-                    <DropdownTrigger>
+                <Dropdown className="dark text-foreground bg-background" >
+                    <DropdownTrigger >
                         <Button variant="bordered">
                             {role || 'Select a role'}
                         </Button>

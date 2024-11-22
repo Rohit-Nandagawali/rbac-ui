@@ -8,6 +8,15 @@ export default {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
   ], theme: {
     extend: {
+      animation: {
+        shake: 'shake 0.5s ease-in-out infinite',
+      },
+      keyframes: {
+        shake: {
+          '0%, 100%': { transform: 'rotate(10deg)' },
+          '50%': { transform: 'rotate(-10deg)' },
+        },
+      },
       fontFamily: {
         Montserrat: ['Montserrat', 'sans-serif']
       },

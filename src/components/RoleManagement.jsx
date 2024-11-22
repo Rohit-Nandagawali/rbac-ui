@@ -1,4 +1,4 @@
-'use client'
+
 
 import React, { useState, useMemo } from 'react'
 import {
@@ -6,7 +6,7 @@ import {
     Button, Input, Modal, ModalContent, useDisclosure,
     Dropdown, DropdownTrigger, DropdownMenu, DropdownItem
 } from "@nextui-org/react"
-import { Search, PlusCircle, MoreVertical } from 'lucide-react'
+import { Search, PlusCircle, MoreVertical, PlusIcon } from 'lucide-react'
 import RoleForm from './RoleForm'
 
 export default function RoleManagement({ roles, permissions, onAddRole, onEditRole, onDeleteRole }) {
@@ -36,8 +36,11 @@ export default function RoleManagement({ roles, permissions, onAddRole, onEditRo
         <div>
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-2xl font-semibold">Role Management</h2>
-                <Button color="primary" endContent={<PlusCircle />} onPress={onOpen}>
+                <Button color="primary" className='hidden md:flex' variant='shadow' endContent={<PlusCircle />} onPress={() => { setSelectedRole(null); onOpen(); }}>
                     Add Role
+                </Button>
+                <Button color="primary" variant='shadow' isIconOnly className='flex md:hidden' onPress={() => { setSelectedRole(null); onOpen(); }}>
+                    <PlusIcon />
                 </Button>
             </div>
             <div className="mb-4">
@@ -76,7 +79,7 @@ export default function RoleManagement({ roles, permissions, onAddRole, onEditRo
                                     </DropdownTrigger>
                                     <DropdownMenu>
                                         <DropdownItem onPress={() => { setSelectedRole(item); onOpen(); }}>Edit</DropdownItem>
-                                        <DropdownItem color="danger" onPress={() => onDeleteRole(item.id)}>Delete</DropdownItem>
+                                        <DropdownItem color="danger" variant='light' onPress={() => onDeleteRole(item.id)}>Delete</DropdownItem>
                                     </DropdownMenu>
                                 </Dropdown>
                             </TableCell>
@@ -84,7 +87,7 @@ export default function RoleManagement({ roles, permissions, onAddRole, onEditRo
                     )}
                 </TableBody>
             </Table>
-            <Modal className='dark text-foreground bg-background' isOpen={isOpen} onOpenChange={onOpenChange}>
+            <Modal className='dark text-foreground bg-background' isOpen={isOpen} onOpenChange={(open) => { if (!open) setSelectedRole(null); onOpenChange(open); }}>
                 <ModalContent>
                     {(onClose) => (
                         <RoleForm

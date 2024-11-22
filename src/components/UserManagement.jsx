@@ -1,4 +1,4 @@
-'use client'
+
 
 import React, { useState, useMemo, useCallback } from 'react'
 import {
@@ -6,7 +6,7 @@ import {
     Button, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem,
     Modal, ModalContent, Chip, Pagination, User, useDisclosure
 } from "@nextui-org/react"
-import { Search, ChevronDown, MoreVertical, PlusCircle } from 'lucide-react'
+import { Search, ChevronDown, MoreVertical, PlusCircle, PlusIcon } from 'lucide-react'
 import UserForm from './UserForm'
 import { columns, statusOptions, statusColorMap, INITIAL_VISIBLE_COLUMNS } from '../utils/tableUtils'
 
@@ -98,7 +98,7 @@ export default function UserManagement({ users, roles, onAddUser, onEditUser, on
             case "actions":
                 return (
                     <div className="relative flex items-center gap-2">
-                        <Dropdown className='dark text-foreground bg-background '>
+                        <Dropdown className="dark text-foreground bg-background">
                             <DropdownTrigger>
                                 <Button isIconOnly size="sm" variant="light">
                                     <MoreVertical className="text-default-300" />
@@ -106,7 +106,7 @@ export default function UserManagement({ users, roles, onAddUser, onEditUser, on
                             </DropdownTrigger>
                             <DropdownMenu>
                                 <DropdownItem onPress={() => { setSelectedUser(user); onOpen(); }}>Edit</DropdownItem>
-                                <DropdownItem color="danger" onPress={() => onDeleteUser(user.id)}>Delete</DropdownItem>
+                                <DropdownItem color="danger" variant='light' onPress={() => onDeleteUser(user.id)}>Delete</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
                     </div>
@@ -138,9 +138,8 @@ export default function UserManagement({ users, roles, onAddUser, onEditUser, on
     const topContent = useMemo(() => {
         return (
             <div className="flex flex-col gap-4">
-                <div className="flex justify-between gap-3 items-end">
+                <div className="flex justify-between gap-3 items-end flex-wrap">
                     <Input
-                        radius='full'
                         isClearable
                         className="w-full sm:max-w-[44%]"
                         placeholder="Search by name..."
@@ -150,14 +149,13 @@ export default function UserManagement({ users, roles, onAddUser, onEditUser, on
                         onValueChange={onSearchChange}
                     />
                     <div className="flex gap-3">
-                        <Dropdown className='dark text-foreground bg-background '>
+                        <Dropdown className="dark text-foreground bg-background">
                             <DropdownTrigger>
                                 <Button variant="bordered" endContent={<ChevronDown size={18} />}>
                                     {filter.role === 'all' ? 'All Roles' : filter.role}
                                 </Button>
                             </DropdownTrigger>
                             <DropdownMenu
-
                                 aria-label="Role filter actions"
                                 selectionMode="single"
                                 selectedKeys={[filter.role]}
@@ -169,7 +167,7 @@ export default function UserManagement({ users, roles, onAddUser, onEditUser, on
                                 ))}
                             </DropdownMenu>
                         </Dropdown>
-                        <Dropdown className='dark text-foreground bg-background '>
+                        <Dropdown className="dark text-foreground bg-background">
                             <DropdownTrigger>
                                 <Button variant="bordered" endContent={<ChevronDown size={18} />}>
                                     {filter.status === 'all' ? 'All Statuses' : filter.status}
@@ -186,8 +184,11 @@ export default function UserManagement({ users, roles, onAddUser, onEditUser, on
                                 <DropdownItem key="inactive">Inactive</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
-                        <Button color="primary" endContent={<PlusCircle />} onPress={onOpen}>
+                        <Button color="primary" variant='shadow' className='hidden md:flex' endContent={<PlusCircle />} onPress={() => { setSelectedUser(null); onOpen(); }}>
                             Add New
+                        </Button>
+                        <Button color="primary" variant='shadow' isIconOnly className='flex md:hidden' onPress={() => { setSelectedUser(null); onOpen(); }}>
+                            <PlusIcon />
                         </Button>
                     </div>
                 </div>
@@ -240,15 +241,11 @@ export default function UserManagement({ users, roles, onAddUser, onEditUser, on
         <div>
             <Table
                 aria-label="Example table with custom cells, pagination and sorting"
-                radius='sm'
-                shadow='none'
                 isHeaderSticky
                 bottomContent={bottomContent}
                 bottomContentPlacement="outside"
                 classNames={{
-                    wrapper: "max-h-[382px] ",
-
-
+                    wrapper: "max-h-[382px]",
                 }}
                 selectedKeys={selectedKeys}
                 selectionMode="multiple"
@@ -278,7 +275,7 @@ export default function UserManagement({ users, roles, onAddUser, onEditUser, on
                 </TableBody>
             </Table>
 
-            <Modal className='dark text-foreground bg-background ' isOpen={isOpen} onOpenChange={onOpenChange}>
+            <Modal className='dark text-foreground bg-background ' isOpen={isOpen} onOpenChange={(open) => { if (!open) setSelectedUser(null); onOpenChange(open); }}>
                 <ModalContent>
                     {(onClose) => (
                         <UserForm
